@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Styling</title>
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <link href="index.css" rel="stylesheet"></head>
+</head>
+<body>
+    <section class="container">
+        <div class="row row--body">
+            <div class="col qr-form">
+                <div class="panel panel--open">
+                    <label for="qr-url">URL</label>
+                    <input id="qr-url" type="text" value="https://tocr.com">
+                </div>
+                <div class="col qr-code-container">
+                    <div class="qr-code" id="qr-code-generated"></div>
+                    <div class="qr-download-group">
+                        <button id="qr-download">Download</button>
+                        <!--
+                        <label class="hide" for="qr-extension">Extension</label>
+                        <select id="qr-extension">
+                            <option value="png" selected="">PNG</option>
+                            <option value="jpeg">JPEG</option>
+                        </select>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script type="text/javascript">
+    const qrCode = new QRCodeStyling({
+            "width":300,
+            "height":300,
+            "data":"https://tocr.com",
+            "image":"tocr_logo.png",
+            "margin":0,
+            "qrOptions":{
+                "typeNumber":"0",
+                "mode":"Byte",
+                "errorCorrectionLevel":"Q"
+            },
+            "imageOptions":{
+                "crossOrigin": "anonymous",
+                "hideBackgroundDots":true,
+                "imageSize":0.3,
+                "margin":4
+            },
+            "dotsOptions":{
+                "type":"dots",
+                "color":"#B30838",
+                "gradient":null
+            },
+            "backgroundOptions":{
+                "color":"#ffffff"
+            },
+            "dotsOptionsHelper":{
+                "colorType":{
+                    "single":true,
+                    "gradient":false
+                },
+            },
+            "cornersSquareOptions":{
+                "type":"dot",
+                "color":"#B30838"
+            },
+            "cornersSquareOptionsHelper":{
+                "colorType":{
+                    "single":true,
+                    "gradient":false
+                },
+            },
+            "cornersDotOptions":{
+                "type":"dot",
+                "color":"#B30838"
+            },
+            "cornersDotOptionsHelper":{
+                "colorType":{
+                    "single":true,
+                    "gradient":false
+                },
+            },
+            "backgroundOptionsHelper":{
+                "colorType":{
+                    "single":true,
+                    "gradient":false
+                },
+            }
+    });
+
+    qrCode.append(document.getElementById("qr-code-generated"));
+    document.getElementById("qr-url").oninput = () => {
+        const url = document.getElementById("qr-url").value;
+        qrCode.update({data:url})
+    }
+    document.getElementById("qr-download").onclick = () => {
+        qrCode.download({ extension:"png", name: "qr" });
+    };
+</script>
+</html>
+
